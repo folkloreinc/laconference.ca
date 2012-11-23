@@ -8,7 +8,10 @@ var CONFIG = require('./config');
 
 //Create Express
 var express = require('express');
-var app = express();
+var app = express(),
+	server = require('http').createServer(app),
+	io = require('socket.io').listen(server);
+app.listen(CONFIG.port);
 
 //Twitter
 var twitter = require('ntwitter');
@@ -34,7 +37,6 @@ app.configure(function() {
 	app.use(express.static(publicFolder));
 });
 app.enable("jsonp callback");
-app.listen(CONFIG.port);
 
 //Home
 app.get('/',function(req,res) {
