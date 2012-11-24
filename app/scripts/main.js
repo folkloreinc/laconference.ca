@@ -1,13 +1,18 @@
 require.config({
-  shim: {
+  paths: {
+    jquery: 'vendor/jquery.min',
+    kinetic: 'vendor/kinetic-v4.0.5.min'
   },
 
-  paths: {
-    jquery: 'vendor/jquery.min'
+  shim: {
+    kinetic: {
+        exports: function() { return Kinetic; }
+    }
   }
+
 });
  
-require(['app'], function(app) {
+require(['jquery', 'kinetic', 'app'], function(jquery, kinetic, app) {
   // use app here
-  console.log(app);
+  console.log(jquery, kinetic, app);
 });
