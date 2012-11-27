@@ -16,6 +16,12 @@
 	line-height:12px;
 }
 
+.tweettooltip .text a {
+	color:#9E005D;
+	font-weight:bold;
+	text-decoration:none;
+}
+
 .tweettooltip .tip {
 	position:absolute;
 	width:12px;
