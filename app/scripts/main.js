@@ -6,7 +6,7 @@ require.config({
 
 });
  
-require(['jquery', 'molecule', 'user'], function($, Molecule, User) {
+require(['jquery', 'molecule', 'user','tooltip'], function($, Molecule, User, Tooltip) {
     
     // console.log($);
 
