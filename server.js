@@ -14,7 +14,7 @@ var express = require('express');
 var app = express(),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server);
-app.listen(CONFIG.port);
+server.listen(CONFIG.port);
 
 //Twitter
 var twitter = require('ntwitter');
@@ -42,8 +42,8 @@ app.set('views', PUBLIC_FOLDER);
 app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	app.use(app.router);
 	app.use(express.static(PUBLIC_FOLDER));
+	app.use(app.router);
 });
 app.enable("jsonp callback");
 
