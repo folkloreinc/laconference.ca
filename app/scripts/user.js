@@ -30,6 +30,7 @@ define(['jquery', 'animations'], function($, Animations) {
                 // Build jQuery Image object 
                 var $img = $(profileImg).attr({'id': event.data.id});
                 $img.css({
+                    'cursor': 'pointer',
                     'display': 'none',
                     'position': 'absolute',
                     'left': event.data.x,
@@ -41,12 +42,12 @@ define(['jquery', 'animations'], function($, Animations) {
                 $img.hover(
                     // mouseenter
                     function(){
-                        $(this).stop().css({'width': this.size, 'height': this.size, 'z-index': 5});
+                        $(this).stop(true, true).css({'width': this.size, 'height': this.size, 'z-index': 3});
                         Animations.stretch($(this), {size: 20, fromCenter: true});
                     },
                     // mouseleave
                     function(){
-                        $(this).stop().css({'width': this.size, 'height': this.size, 'z-index': 1});
+                        $(this).stop(true, true).css({'width': this.size, 'height': this.size, 'z-index': '-=1'});
                         Animations.stretch($(this), {size: -20, fromCenter: true});
                     }
                 );
