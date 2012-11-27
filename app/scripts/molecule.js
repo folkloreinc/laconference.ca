@@ -5,7 +5,7 @@ define(['jquery', 'user', 'frameAnimation'], function($, User, FrameAnimation) {
         this.$stage = $stage;
         this.stageWidth = $stage.innerWidth();
         this.stageHeight = $stage.innerHeight();
-        this.radius = 400;
+        this.radius = 300;
         this.pos = {
             'x': (this.stageWidth - this.radius) / 2,
             'y': (this.stageHeight - this.radius) / 2
