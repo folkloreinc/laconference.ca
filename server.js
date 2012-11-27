@@ -5,6 +5,9 @@
  */
 
 var CONFIG = require('./config');
+var LISTS = require('./lists');
+
+var Ecosystem = require('./lib/ecosystem');
 
 //Create Express
 var express = require('express');
@@ -50,10 +53,26 @@ app.enable("jsonp callback");
  * Web server
  *
  */
+
 //Home
 app.get('/',function(req,res) {
 	res.render('index');
 });
+
+//Update
+var ecosystem = new Ecosystem();
+
+app.get('/import',function(req,res) {
+	ecosystem.import(LISTS);
+	res.end('end');
+});
+app.get('/ecosystem.json',function(req,res) {
+	ecosystem.load(function(data) {
+		res.jsonp(data);
+	});
+});
+
+
 
 
 /*
@@ -75,7 +94,7 @@ var twitterConnectionRetries = 1;
 function createStream() {
 	twit.stream('statuses/filter', {
 
-		'track': 'bullshitteur.ca'
+		'track': 'bieber'
 
 	}, function(stream) {
 
