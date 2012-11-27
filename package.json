@@ -32,6 +32,7 @@
 		"socket.io": "0.9.x",
 		"ntwitter": "0.5.x",
 		"consolidate": "0.5.x",
-		"swig": "0.13.x"
+		"swig": "0.13.x",
+		"mongoose": "3.4.x"
 	}
 }
