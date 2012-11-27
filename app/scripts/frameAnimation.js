@@ -1,10 +1,13 @@
 define(['jquery'], function($) {
 
-    var FrameAnimation = function(opts){
+    var FrameAnimation = function($stage, opts){
+        this.$stage = $stage;
         this.opts = $.extend({
             'frames': [],
             'height': 400,
             'width': 400,
+            'posX': 0,
+            'posY': 0,
             'loop': true,
             'speed': 8  //in ms
         }, opts);
@@ -61,7 +64,12 @@ define(['jquery'], function($) {
     FrameAnimation.prototype.create = function() {
         if (this.opts.frames.length) {
             this.$el = $('<img class="frameAnimation" height="'+this.opts.height+'" width="'+this.opts.width+'" src="'+this.opts.frames[this.curFrame]+'" />');
-            $('body').append(this.$el);
+            this.$el.css({
+                'position': 'absolute',
+                'left': this.opts.posX,
+                'top': this.opts.posY
+            });
+            this.$stage.append(this.$el);
         }
     };
     

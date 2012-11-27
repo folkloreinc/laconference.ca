@@ -1,11 +1,12 @@
 require.config({
     paths: {
-        jquery: 'vendor/jquery.min'
+        "jquery": "empty:",
+        easing: 'vendor/jquery.easing.1.3'
     }
 
 });
  
-require(['jquery', 'frameAnimation', 'grid'], function($, FrameAnimation, Grid) {
+require(['jquery', 'molecule', 'user'], function($, Molecule, User) {
     
     // console.log($);
 
@@ -17,55 +18,60 @@ require(['jquery', 'frameAnimation', 'grid'], function($, FrameAnimation, Grid) 
     
 
     var tweets = {
-        271613943288586241: {
-            screen_name: 'martinlessard',
-            profile_image_url: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
+        '271613943288586241': {
+            screenName: 'martinlessard',
+            profileImageUrl: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
             text: 'bla bla bla bla',
             followers: [2222]
         },
-        270919484397731840: {
-            screen_name: 'francoiscote',
-            profile_image_url: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
+        '270919484397731840': {
+            screenName: 'francoiscote',
+            profileImageUrl: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
             text: 'bla bla bla bla',
             followers: []
         },
-        270614833014120448: {
-            screen_name: 'martinlessard',
-            profile_image_url: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
+        '270614833014120448': {
+            screenName: 'prout',
+            profileImageUrl: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
             text: 'bla bla bla bla',
             followers: [111]
         },
+        '270614833014120449': {
+            screenName: 'prout',
+            profileImageUrl: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
+            text: 'bla bla bla bla',
+            followers: [111]
+        },
+        '270614833014120442': {
+            screenName: 'prout',
+            profileImageUrl: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
+            text: 'bla bla bla bla',
+            followers: [111]
+        },
+        '270614833014120443': {
+            screenName: 'prout',
+            profileImageUrl: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
+            text: 'bla bla bla bla',
+            followers: [111]
+        },
+        '270614833014120444': {
+            screenName: 'prout',
+            profileImageUrl: 'http://a0.twimg.com/profile_images/1777569006/image1327396628_normal.png',
+            text: 'bla bla bla bla',
+            followers: [111]
+        }
     };
 
-
-    function receiveTweets(tw) {
-        var grid = new Grid(tw);
-
-        grid.show();
+    function receiveTweets(rawTweets) {
+        // Build Molecule from tweets
+        var mol = new Molecule($('#stage'));
+        for (var key in rawTweets) {
+            var usr = new User(key, rawTweets[key]);
+            mol.addElement(usr)
+        };
+        mol.show();
     }
     receiveTweets(tweets);
-
-
-
-
-
-    // Basic Frame animation
-    var cercle1Animation = new FrameAnimation({
-        'frames': [
-            'images/frameAnimations/Cercle1-01.png',
-            'images/frameAnimations/Cercle1-02.png',
-            'images/frameAnimations/Cercle1-03.png',
-            'images/frameAnimations/Cercle1-04.png',
-            'images/frameAnimations/Cercle1-05.png',
-            'images/frameAnimations/Cercle1-06.png',
-            'images/frameAnimations/Cercle1-07.png',
-            'images/frameAnimations/Cercle1-08.png',
-            'images/frameAnimations/Cercle1-09.png',
-            'images/frameAnimations/Cercle1-10.png'
-        ],
-        'loop': false
-    });
-    // cercle1Animation.animate();
 
     
 

@@ -9,3 +9,9 @@ body {
     background: $grayDarker;
     // background: url(/images/dirt003.gif);
 }
+
+#stage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
