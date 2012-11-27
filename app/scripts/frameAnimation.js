@@ -1,7 +1,6 @@
 define(['jquery'], function($) {
 
-    var FrameAnimation = function($stage, opts){
-        this.$stage = $stage;
+    var FrameAnimation = function(opts){
         this.opts = $.extend({
             'frames': [],
             'height': 400,
@@ -69,7 +68,7 @@ define(['jquery'], function($) {
                 'left': this.opts.posX,
                 'top': this.opts.posY
             });
-            this.$stage.append(this.$el);
+            $(window.boomStage).append(this.$el);
         }
     };
     

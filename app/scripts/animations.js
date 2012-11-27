@@ -58,7 +58,7 @@ define(['jquery', 'easing'], function($){
                 'top': '-='+offset.y,
                 'width': '+='+opts.size,
                 'height': '+='+opts.size
-            }, 800, 'easeOutElastic');
+            }, 600, 'easeOutElastic');
         }
 
 

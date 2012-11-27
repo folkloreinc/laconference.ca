@@ -1,17 +1,18 @@
 define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, FrameAnimation, Utilities) {
 
-    var Molecule = function($stage){
-        var minRadius = 100;
-        var maxRadius = 200;
-
+    var Molecule = function(opts){
+        this.opts = $.extend({
+            'minRadius': 200,
+            'maxRadius': 400
+        }, opts);
+        
         this.elements = [];
-        this.$stage = $stage;
-        this.radius = Utilities.randomIntInRange(minRadius, maxRadius);
+        this.radius = Utilities.randomIntInRange(this.opts.minRadius, this.opts.maxRadius);
         this.circ = this.radius * 2;
         // random position on stage
         this.pos = {
-            'x': Utilities.randomIntInRange(0, this.$stage.width() - this.circ),
-            'y': Utilities.randomIntInRange(0, this.$stage.height() - this.circ)
+            'x': 0,
+            'y': 0
         };
         this.center = {
             'x': this.pos.x + this.radius,
@@ -39,8 +40,16 @@ define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, Fram
 
     Molecule.prototype.show = function() {
 
+        // Create Users elements
+        if(this.elements) {
+            for (var i = 0; i < this.elements.length; i++) {
+                var elem = this.elements[i];
+                elem.show();
+            }
+        }
+
         // Circle animation
-        // var anim = new FrameAnimation(this.$stage, {
+        // var anim = new FrameAnimation({
         //     'frames': [
         //         'images/frameAnimations/Cercle1-01.png',
         //         'images/frameAnimations/Cercle1-02.png',
@@ -53,21 +62,13 @@ define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, Fram
         //         'images/frameAnimations/Cercle1-09.png',
         //         'images/frameAnimations/Cercle1-10.png'
         //     ],
-        //     'height': this.radius * 1.5,
-        //     'width': this.radius * 1.5,
-        //     'posX': this.pos.x - (this.radius / 2),
-        //     'posY': this.pos.y - (this.radius / 2),
+        //     'height': this.radius * 2,
+        //     'width': this.radius * 2,
+        //     'posX': this.pos.x,
+        //     'posY': this.pos.y,
         //     'loop': false
         // });
         // anim.animate();
-
-        // Create Users elements
-        if(this.elements) {
-            for (var i = 0; i < this.elements.length; i++) {
-                var elem = this.elements[i];
-                elem.show();
-            }
-        }
 
     };
 

@@ -6,7 +6,7 @@ require.config({
 
 });
  
-require(['jquery', 'molecule', 'user','tooltip'], function($, Molecule, User, Tooltip) {
+require(['jquery', 'stage', 'molecule', 'user', 'tooltip'], function($, Stage, Molecule, User, Tooltip) {
     
     // console.log($);
 
@@ -19,30 +19,51 @@ require(['jquery', 'molecule', 'user','tooltip'], function($, Molecule, User, To
     // Get Original Tweets
     $.get('/ecosystem.json', function receiveTweets(data) {
         
+        window.receivedTweets = data;
+
+        // Create stage
+        window.boomStage = new Stage($('#stage'));
+
         // Create Molecules
-        var nbMolecules = 3;
-        var molecules = [];
+        var nbMolecules = 1;
         for (var i = 0; i < nbMolecules; i++) {
-            var mol = new Molecule($('#stage'));
-            molecules.push(mol);
+            var mol = new Molecule();
+            boomStage.addMolecule(mol)
         }
 
         // Place Users into random molecule
         for (var key in data) {
+
             // random Molecule
-            var randMol = Math.floor(Math.random() * nbMolecules);
-            var mol = molecules[randMol];
+            var mol = boomStage.getRandomMolecule();
 
             // place Users
             var usr = new User(key, data[key]);
             mol.addElement(usr);
         }
 
-        //Show molecules
-        for (var m = 0; m < nbMolecules; m++) {
-            console.log(molecules[m]);
-            molecules[m].show();
+        // Show stage
+        boomStage.show();
+
+    });
+
+    $('#stage').on('click', '.user-img', function(){
+        var usrObj = $(this).data('userObj');
+        if(usrObj.friends.length) {
+
+            // Create Molecule
+            var mol = new Molecule({minRadius: 200,maxRadius: 400});
+            
+            // Add Users to molecule
+            $.each(usrObj.friends, function(key, value) {
+                var usr = new User(value, window.receivedTweets[value]);
+                mol.addElement(usr);
+            });
+            
+            // place it on stage and show it
+            window.boomStage.addAndShowMolecule(mol);
         }
+
     });
     
 
