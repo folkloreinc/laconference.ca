@@ -60,7 +60,16 @@ app.get('/',function(req,res) {
 });
 
 //Update
+var ecosystemList = null;
+var twitterUsers = [];
 var ecosystem = new Ecosystem();
+ecosystem.load(function(data) {
+	ecosystemList = data;
+	for(var id in data) {
+		twitterUsers.push(id);
+	}
+	createStream();
+});
 
 app.get('/import',function(req,res) {
 	ecosystem.import(LISTS);
@@ -92,9 +101,10 @@ io.sockets.on('connection',function(socket) {
  */
 var twitterConnectionRetries = 1;
 function createStream() {
+
 	twit.stream('statuses/filter', {
 
-		'track': 'bieber'
+		'follow': twitterUsers.join(',')
 
 	}, function(stream) {
 
@@ -103,7 +113,14 @@ function createStream() {
 		stream.on('data', function (data) {
 			try {
 				twitterConnectionRetries = 1;
-				io.sockets.emit('tweet',data);
+				io.sockets.emit('tweet',{
+					'id' : data.id_str,
+					'text' : data.text,
+					'user' : {
+						'id' : data.user.id_str,
+						'screen_name' : data.user.screen_name
+					}
+				});
 			} catch(e){}
 		});
 
@@ -134,4 +151,3 @@ function createStream() {
 		});
 	});
 }
-createStream();
