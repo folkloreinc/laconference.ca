@@ -19,14 +19,15 @@ define(['jquery', 'animations'], function($, Animations) {
 
         // Load Image
         var profileImg = new Image();
-        $(profileImg).bind('load', {
-            'id': this.id,
-            'size': this.size,
-            'x': this.x,
+        $(profileImg).bind('load', 
+            {
+                'id': this.id,
+                'size': this.size,
+                'x': this.x,
             'y': this.y
             },
+            
             function(event){
-
                 // Build jQuery Image object 
                 var $img = $(profileImg).attr({'id': event.data.id});
                 $img.css({
@@ -54,10 +55,11 @@ define(['jquery', 'animations'], function($, Animations) {
                 // Place on stage
                 $stage.append($img);
                 // Animate entry
-                Animations.pop($img, {fromCenter: true, randomDelay: true});
+                Animations.pop($img, {fromCenter: true, randomDelay: true, maxDelay: 2000});
             }
         );
-        profileImg.src = this.profileImageUrl;
+        // profileImg.src = this.profileImageUrl;
+        profileImg.src = 'https://si0.twimg.com/profile_images/523878425/twitterProfilePhoto_normal.jpg';
         
         
     };

@@ -12,7 +12,7 @@ define(['jquery', 'easing'], function($){
             }, opts);
 
             // Setup variables
-            var delay = (opts.randomDelay)?(Math.random() * 500 + 1)-1:0;
+            var delay = (opts.randomDelay)?(Math.random() * opts.maxDelay + 1)-1:0;
             var offset = {
                 x: (opts.fromCenter)?Math.ceil($el.width()/2):0,
                 y: (opts.fromCenter)?Math.ceil($el.height()/2):0
@@ -43,8 +43,7 @@ define(['jquery', 'easing'], function($){
             // Options
             opts = $.extend({
                 'size': 40,
-                'fromCenter': false,
-                'maxDelay': 500
+                'fromCenter': false
             }, opts);
 
             // Setup variables
@@ -61,6 +60,7 @@ define(['jquery', 'easing'], function($){
                 'height': '+='+opts.size
             }, 800, 'easeOutElastic');
         }
+
 
     };
 

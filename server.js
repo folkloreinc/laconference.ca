@@ -30,7 +30,8 @@ var twit = new twitter(CONFIG.twitter);
  * Configuration
  *
  */
-var PUBLIC_FOLDER = __dirname + "/dist";
+var PUBLIC_FOLDER = __dirname + "/app";
+var STYLES_FOLDER = __dirname + "/temp/styles";
 
 //Template engine
 var consolidate = require('consolidate');
@@ -43,6 +44,7 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.static(PUBLIC_FOLDER));
+    app.use('/styles', express.static(STYLES_FOLDER));
 	app.use(app.router);
 });
 app.enable("jsonp callback");
