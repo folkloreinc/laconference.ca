@@ -4,7 +4,7 @@ define(['jquery', 'animations'], function($, Animations) {
 
     var User = function(id, data){
         this.id = id;
-        this.size = 50;
+        this.size = 40;
         this.x = 0;
         this.y = 0;
 
@@ -29,7 +29,7 @@ define(['jquery', 'animations'], function($, Animations) {
 
                 // Build jQuery Image object 
                 var $img = $(profileImg).attr({'id': event.data.id});
-                    $img.css({
+                $img.css({
                     'display': 'none',
                     'position': 'absolute',
                     'left': event.data.x,
@@ -37,6 +37,19 @@ define(['jquery', 'animations'], function($, Animations) {
                     'width': event.data.size,
                     'height': event.data.size
                 });
+                // Bind Events
+                $img.hover(
+                    // mouseenter
+                    function(){
+                        $(this).stop().css({'width': this.size, 'height': this.size, 'z-index': 5});
+                        Animations.stretch($(this), {size: 20, fromCenter: true});
+                    },
+                    // mouseleave
+                    function(){
+                        $(this).stop().css({'width': this.size, 'height': this.size, 'z-index': 1});
+                        Animations.stretch($(this), {size: -20, fromCenter: true});
+                    }
+                );
                 // Place on stage
                 $stage.append($img);
                 // Animate entry

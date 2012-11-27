@@ -1,6 +1,8 @@
 define(['jquery', 'easing'], function($){
 
     var Animations = {
+
+        // Make object appear as a POP!!
         pop: function($el, opts){
             // Options
             opts = $.extend({
@@ -35,7 +37,31 @@ define(['jquery', 'easing'], function($){
                 'width': originalSize.x,
                 'height': originalSize.y
             }, 800, 'easeOutElastic');
+        },
+
+        stretch: function($el, opts){
+            // Options
+            opts = $.extend({
+                'size': 40,
+                'fromCenter': false,
+                'maxDelay': 500
+            }, opts);
+
+            // Setup variables
+            var offset = {
+                x: (opts.fromCenter)?Math.ceil(opts.size/2):0,
+                y: (opts.fromCenter)?Math.ceil(opts.size/2):0
+            };
+
+            // Animate pop
+            $el.animate({
+                'left': '-='+offset.x,
+                'top': '-='+offset.y,
+                'width': '+='+opts.size,
+                'height': '+='+opts.size
+            }, 800, 'easeOutElastic');
         }
+
     };
 
     return Animations;
