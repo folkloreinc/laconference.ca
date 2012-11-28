@@ -59,6 +59,34 @@ define(['jquery', 'easing'], function($){
                 'width': '+='+opts.size,
                 'height': '+='+opts.size
             }, 600, 'easeOutElastic');
+        },
+
+        explode: function($el, opts){
+
+            var $clone = $el.clone().appendTo('#stage');
+
+            // Options
+            opts = $.extend({
+                'size': 100,
+                'fromCenter': true
+            }, opts);
+
+            // Setup variables
+            var offset = {
+                x: (opts.fromCenter)?Math.ceil(opts.size/2):0,
+                y: (opts.fromCenter)?Math.ceil(opts.size/2):0
+            };
+
+            // Animate explosion
+            $clone.animate({
+                'left': '-='+offset.x,
+                'top': '-='+offset.y,
+                'width': '+='+opts.size,
+                'height': '+='+opts.size,
+                'opacity': 0
+            }, 1000, 'easeOutExpo', function() {
+                $(this).remove();
+            });
         }
 
 

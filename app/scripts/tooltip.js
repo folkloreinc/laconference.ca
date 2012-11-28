@@ -11,7 +11,7 @@ define(['jquery'], function($) {
         this.$tooltip = this._buildElement();
         $('#stage').append(this.$tooltip);
 
-        this.$tooltip.find('.screenName').html(tweet.screen_name);
+        this.$tooltip.find('.screenName').html('@'+tweet.screen_name);
         this.$tooltip.find('.tweet').html(tweet.text);
 
         this.$tooltip.css('opacity',0);
@@ -42,8 +42,8 @@ define(['jquery'], function($) {
 
 	TweetTooltip.prototype.hide = function() {
 
-		this.$tooltip.fadeTo('fast',0, function(){
-            this.$tooltip.remove();
+		this.$tooltip.fadeTo('fast', 0, function(){
+            $(this).remove();
         });
 
 	};

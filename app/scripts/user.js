@@ -3,8 +3,10 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
     var User = function(id, data){
         this.id = id;
         this.size = 40;
-        this.x = 0;
-        this.y = 0;
+        this.pos = {
+            'x': 0,
+            'y': 0
+        };
 
         // parse data into properties
         var that = this;
@@ -14,15 +16,14 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
     };
 
     User.prototype.show = function() {
-
         // Load Image
         var profileImg = new Image();
         $(profileImg).bind('load', 
             {
                 'id': this.id,
                 'size': this.size,
-                'x': this.x,
-                'y': this.y
+                'x': this.pos.x,
+                'y': this.pos.y
             },
             
             $.proxy(function(event){

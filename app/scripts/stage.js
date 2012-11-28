@@ -11,15 +11,9 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
         }
     };
 
-    Stage.prototype.addAndShowMolecule = function(mol) {
-        this.addMolecule(mol);
-        this.placeMolecule(mol);
-        mol.show();
-    }
-
     Stage.prototype.addMolecule = function(mol) {
-        this.placeMolecule(mol);
         this.molecules.push(mol);
+        this.placeMolecule(mol);
     };
 
     Stage.prototype.getMolecule = function(index) {

@@ -32,7 +32,7 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
         }
 
         // Place Users into random molecule
-            var i = 0;
+        var i = 0;
         for (var key in data) {
             if(i < 40) {
                 // random Molecule
@@ -73,6 +73,7 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     $('#stage').on('mouseleave', '.user-div img', function(){
         var $userDiv = $(this).parent('.user-div');
         var usrObj = $(this).parent('.user-div').data('userObj');
+
         $userDiv.stop(true, true).css({'width': usrObj.size+20, 'height': usrObj.size+20, 'z-index': '-=1'});
         Animations.stretch($userDiv, {size: -20, fromCenter: true});
         usrObj.tooltip.hide();
@@ -80,21 +81,27 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
 
     // User - Click
     $('#stage').on('click', '.user-div', function(){
+
         var usrObj = $(this).data('userObj');
         if(usrObj.friends.length) {
 
-            // Create Molecule
+            // explose animation
+            Animations.explode($(this));
+
+            // Create Molecule and place it on Stage
             var mol = new Molecule({minRadius: 200,maxRadius: 400});
-            
-            // Add Users to molecule
+            window.boomStage.addMolecule(mol);
+
+            // Add Friends to molecule
             $.each(usrObj.friends, function(key, value) {
                 var usr = new User(value, window.receivedTweets[value]);
                 mol.addElement(usr);
             });
             
-            // place it on stage and show it
-            window.boomStage.addAndShowMolecule(mol);
+            // show it
+            mol.show()
         }
+
 
     });
     
