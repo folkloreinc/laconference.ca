@@ -44,10 +44,10 @@ define({
     'words': {
         'ecom': {
             'frames': [
-                'images/frameAnimations/E-commerce_01.png',
-                'images/frameAnimations/E-commerce_02.png',
-                'images/frameAnimations/E-commerce_03.png',
-                'images/frameAnimations/E-commerce_04.png'
+                'images/frameAnimations/e-commerce_01.png',
+                'images/frameAnimations/e-commerce_02.png',
+                'images/frameAnimations/e-commerce_03.png',
+                'images/frameAnimations/e-commerce_04.png'
             ],
             'width': 350,
             'height': 60
@@ -64,49 +64,49 @@ define({
         },
         'marketing': {
             'frames': [
-                'images/frameAnimations/Marketing_01.png',
-                'images/frameAnimations/Marketing_02.png',
-                'images/frameAnimations/Marketing_03.png',
-                'images/frameAnimations/Marketing_04.png'
+                'images/frameAnimations/marketing_01.png',
+                'images/frameAnimations/marketing_02.png',
+                'images/frameAnimations/marketing_03.png',
+                'images/frameAnimations/marketing_04.png'
             ],
             'width': 603,
             'height': 74
         },
         'mobilite': {
             'frames': [
-                'images/frameAnimations/Mobilite_01.png',
-                'images/frameAnimations/Mobilite_02.png',
-                'images/frameAnimations/Mobilite_03.png'
+                'images/frameAnimations/mobilite_01.png',
+                'images/frameAnimations/mobilite_02.png',
+                'images/frameAnimations/mobilite_03.png'
             ],
             'width': 250,
             'height': 65
         },
         'modelesdaffaires': {
             'frames': [
-                'images/frameAnimations/ModelesDaffaire_01.png',
-                'images/frameAnimations/ModelesDaffaire_02.png',
-                'images/frameAnimations/ModelesDaffaire_03.png',
-                'images/frameAnimations/ModelesDaffaire_04.png'
+                'images/frameAnimations/modele_01.png',
+                'images/frameAnimations/modele_02.png',
+                'images/frameAnimations/modele_03.png',
+                'images/frameAnimations/modele_04.png'
             ],
             'width': 577,
             'height': 75
         },
         'reseauxsociaux': {
             'frames': [
-                'images/frameAnimations/Reseauxsociaux_01.png',
-                'images/frameAnimations/Reseauxsociaux_02.png',
-                'images/frameAnimations/Reseauxsociaux_03.png',
-                'images/frameAnimations/Reseauxsociaux_04.png'
+                'images/frameAnimations/reseaux_01.png',
+                'images/frameAnimations/reseaux_02.png',
+                'images/frameAnimations/reseaux_03.png',
+                'images/frameAnimations/reseaux_04.png'
             ],
             'width': 414,
             'height': 58
         },
         'strategiesweb': {
             'frames': [
-                'images/frameAnimations/strategiesWeb_01.png',
-                'images/frameAnimations/strategiesWeb_02.png',
-                'images/frameAnimations/strategiesWeb_03.png',
-                'images/frameAnimations/strategiesWeb_04.png'
+                'images/frameAnimations/strategies_01.png',
+                'images/frameAnimations/strategies_02.png',
+                'images/frameAnimations/strategies_03.png',
+                'images/frameAnimations/strategies_04.png'
             ],
             'width': 448,
             'height': 70

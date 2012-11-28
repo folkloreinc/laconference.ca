@@ -15,7 +15,7 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
         });
     };
 
-    User.prototype.show = function() {
+    User.prototype.show = function(showTooltip) {
         // Load Image
         var profileImg = new Image();
         $(profileImg).bind('load', 
@@ -42,15 +42,26 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
                 $usrdiv.append($img);
                 $usrdiv.data('userObj', this);
 
-                // Create tooltip
-                this.tooltip = new Tooltip($usrdiv);
-
                 // Place
                 // -----
                 // Place on stage
                 $(window.stage).append($usrdiv);
+                // Create tooltip
+                this.tooltip = new Tooltip($usrdiv);
                 // Animate entry
-                Animations.pop($usrdiv, {fromCenter: true, randomDelay: true, maxDelay: 2000});
+                Animations.pop($usrdiv, {fromCenter: true, randomDelay: true, maxDelay: 2000}, $.proxy(function(){
+                    if (!!showTooltip) {
+                        this.tooltip.show({
+                            'screen_name' : this.screen_name,
+                            'text' : this.text
+                        });
+
+                        window.setTimeout($.proxy(function() {
+                            this.tooltip.hide();
+                        }, this), 3000);
+                    }
+                    
+                }, this));
             },this)
         );
         profileImg.src = 'https://api.twitter.com/1/users/profile_image?screen_name='+this.screen_name+'&size=normal';
