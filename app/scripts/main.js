@@ -8,7 +8,9 @@ require.config({
  
 require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], function($, Stage, Molecule, User, Tooltip, Animations) {
     
-    // Get Original Tweets
+    /*
+     * Static Tweets
+     */
     $.get('/ecosystem.json', function receiveTweets(data) {
         
         window.receivedTweets = data;
@@ -51,7 +53,44 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     });
 
     /*
-     * Bind Events    
+     * Twitter Stream
+     */
+    var socket = io.connect('http://localhost:3502');
+        socket.on('tweet', function(tweet) {
+        console.log(tweet);
+        var existingUser = window.boomStage.searchUser(tweet.user.id);
+        if(existingUser) {
+            console.log('Existing');
+            console.log(existingUser);
+
+            existingUser.tooltip.show({
+                'screen_name' : existingUser.screen_name,
+                'text' : tweet.text
+            });
+        } else {
+            console.log('New User');
+            // Get existing molecule
+            var mol = window.boomStage.getRandomMolecule();
+            console.log(mol);
+            // prepare tweet data
+            var tweetdata = {
+                'id': tweet.user.id,
+                'screen_name': tweet.user.screen_name,
+                'tweet': tweet.text,
+                'friends': []
+            };
+            // create new User, add to molecule, and show
+            var usr = new User(tweet.user.id, tweetdata);
+            console.log(usr);
+            mol.addElement(usr);
+            usr.show();
+        }
+
+    });
+
+
+    /*
+     * Bind Events
      */
 
     // User - mouseEnter
@@ -138,7 +177,7 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     }
 
     // BG Flickr
-    Animations.randomBGFlicker($('#stage'), {
+    Animations.randomBGFlicker($('#bgimg'), {
         'images': [
             '/images/frameAnimations/bg_001.png',
             '/images/frameAnimations/bg_002.png',
