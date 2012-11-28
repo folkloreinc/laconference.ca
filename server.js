@@ -15,16 +15,11 @@ var app = express(),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server);
 server.listen(CONFIG.port);
-
 io.set('log level', 1);
 
 //Twitter
 var twitter = require('ntwitter');
 var twit = new twitter(CONFIG.twitter);
-
-//Create mongodb link
-//var mongoose = require('mongoose');
-//mongoose.connect(CONFIG.mongoURL);
 
 
 /*
@@ -32,8 +27,15 @@ var twit = new twitter(CONFIG.twitter);
  * Configuration
  *
  */
-var PUBLIC_FOLDER = __dirname + "/app";
-var STYLES_FOLDER = __dirname + "/temp/styles";
+
+if(!process.env.NODE_ENV || process.env.NODE_ENV != 'production') {
+	var PUBLIC_FOLDER = __dirname + "/app";
+	var STYLES_FOLDER = __dirname + "/temp/styles";
+	var SOCKETIO_HOST = 'http://localhost:'+CONFIG.port+'/';
+} else {
+	var PUBLIC_FOLDER = __dirname + "/dist";
+	var SOCKETIO_HOST = 'http://laconference.ca/';
+}
 
 //Template engine
 var consolidate = require('consolidate');
@@ -45,9 +47,11 @@ app.set('views', PUBLIC_FOLDER);
 app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	app.use(express.static(PUBLIC_FOLDER));
-    app.use('/styles', express.static(STYLES_FOLDER));
 	app.use(app.router);
+	app.use(express.static(PUBLIC_FOLDER,{maxAge: 86400000}));
+	if(typeof(STYLES_FOLDER) != 'undefined') {
+    	app.use('/styles', express.static(STYLES_FOLDER,{maxAge: 86400000}));
+	}
 });
 app.enable("jsonp callback");
 
@@ -60,10 +64,12 @@ app.enable("jsonp callback");
 
 //Home
 app.get('/',function(req,res) {
-	res.render('index');
+	res.render('index',{
+		'socketHost' : SOCKETIO_HOST
+	});
 });
 
-//Update
+//Get ecosystem
 var ecosystemList = null;
 var twitterUsers = [];
 var ecosystem = new Ecosystem();
@@ -78,10 +84,13 @@ ecosystem.load(function(data) {
 	createStream();
 });
 
+//Import
 app.get('/import',function(req,res) {
 	ecosystem.import(LISTS);
 	res.end('end');
 });
+
+//Ecosystem json
 app.get('/ecosystem.json',function(req,res) {
 	ecosystem.load(function(data) {
 		res.jsonp(data);
@@ -109,8 +118,6 @@ io.sockets.on('connection',function(socket) {
 var twitterConnectionRetries = 1;
 function createStream() {
 
-	console.log('Twitter stream follow',twitterUsers.join(','));
-
 	twit.stream('statuses/filter', {
 
 		'follow': twitterUsers.join(',')
@@ -133,7 +140,6 @@ function createStream() {
 					});
 					//console.log(data.text);
 				}
-				console.log(data.text);
 			} catch(e){}
 		});
 

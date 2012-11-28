@@ -55,7 +55,7 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     /*
      * Twitter Stream
      */
-    var socket = io.connect('http://localhost:3502');
+    var socket = io.connect(SOCKETIO_HOST);
         socket.on('tweet', function(tweet) {
         
         // Get existing molecule
