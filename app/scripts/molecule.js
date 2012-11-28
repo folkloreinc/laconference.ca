@@ -15,8 +15,8 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
             'y': 0
         };
         this.center = {
-            'x': this.pos.x + this.radius,
-            'y': this.pos.y + this.radius
+            'x': 0,
+            'y': 0
         };
     };
 
@@ -31,13 +31,42 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
         this.elements.push(el);
     };
 
+    Molecule.prototype.updatePosition = function(position) {
+        this.pos.x = position.x;
+        this.pos.y = position.y;
+        this.center.x = this.pos.x + this.radius;
+        this.center.y = this.pos.y + this.radius;
+
+        // // Draw Origin
+        // $('<div>').css({
+        //     'background': 'blue',
+        //     'position': 'absolute',
+        //     'left': this.pos.x,
+        //     'top': this.pos.y,
+        //     'width': '10px',
+        //     'height': '10px'
+        // }).appendTo('body');
+
+        // // Draw Center
+        // $('<div>').css({
+        //     'background': 'red',
+        //     'position': 'absolute',
+        //     'left': this.center.x - 5,
+        //     'top': this.center.y -5,
+        //     'width': '10px',
+        //     'height': '10px'
+        // }).appendTo('body');
+        // console.log(this.pos, this.radius, this.center);
+
+    }
+
     Molecule.prototype.placeElement = function(el) {
         // get random position inside radius
         var randCoords = Utilities.randomCoordsInACircle(this.center.x, this.center.y, this.radius);
-        el.pos.x = randCoords.x + this.pos.x;
-        el.pos.y = randCoords.y + this.pos.y;
+        // console.log(randCoords);
+        el.pos.x = randCoords.x;
+        el.pos.y = randCoords.y;
     };
-
     Molecule.prototype.show = function() {
 
         // Create Users elements
@@ -49,8 +78,9 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
         }
 
         // Circle animation
+        var sp = Utilities.randomPropertyKey(Sprites.circles);
         var anim = new FrameAnimation({
-            'frames': Sprites.cercle1,
+            'frames': Sprites.circles[sp].frames,
             'height': this.radius * 3,
             'width': this.radius * 3,
             'posX': this.pos.x - (this.radius / 4),
@@ -58,7 +88,28 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
             'loop': false
         });
         anim.animate();
-        anim.$el.fadeOut(6000);
+        anim.$el.fadeOut(6000, function(){
+            $(this).remove();
+        });
+
+        // Word animation
+        var wd = Utilities.randomPropertyKey(Sprites.words);
+
+        // get random position on circle
+        var randAngle = Utilities.randomIntInRange(359);
+        var anim = new FrameAnimation({
+            'frames': Sprites.words[wd].frames,
+            'height': Sprites.words[wd].height,
+            'width': Sprites.words[wd].width,
+            'posX': this.center.x + Math.cos(randAngle) * this.radius,
+            'posY': this.center.y + Math.sin(randAngle) * this.radius,
+            'classes' : ['word'],
+            'loop': true
+        });
+        anim.animate();
+        anim.$el.fadeOut(6000, function(){
+            $(this).remove();
+        });
 
     };
 

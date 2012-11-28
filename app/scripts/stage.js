@@ -25,8 +25,10 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
     };
 
     Stage.prototype.placeMolecule = function(mol) {
-        mol.pos.x = Utilities.randomIntInRange(0, this.$stage.width()-mol.circ);
-        mol.pos.y = Utilities.randomIntInRange(0, this.$stage.height()-mol.circ);
+        mol.updatePosition({
+          'x': Utilities.randomIntInRange(0, this.$stage.width()-mol.circ),
+          'y': Utilities.randomIntInRange(0, this.$stage.height()-mol.circ)
+        });
     };
 
     Stage.prototype.show = function() {

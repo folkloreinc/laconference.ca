@@ -58,16 +58,18 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
         var $userDiv = $(this).parent('.user-div');
         var usrObj = $(this).parent('.user-div').data('userObj');
         
-        // stretch only if has friends
-        if (usrObj.friends.length) {
-            $userDiv.stop(true, true).css({'width': usrObj.size, 'height': usrObj.size, 'z-index': 3});
-            Animations.stretch($userDiv, {size: 20, fromCenter: true});
+        if( usrObj ) { // prevent errors when new Users appear under the mouse
+            // stretch only if has friends
+            if (usrObj.friends.length) {
+                $userDiv.stop(true, true).css({'width': usrObj.size, 'height': usrObj.size, 'z-index': 3});
+                Animations.stretch($userDiv, {size: 20, fromCenter: true});
+            }
+            
+            usrObj.tooltip.show({
+                'screen_name' : usrObj.screen_name,
+                'text' : usrObj.text
+            });
         }
-        
-        usrObj.tooltip.show({
-            'screen_name' : usrObj.screen_name,
-            'text' : usrObj.text
-        });
 
     });
 
@@ -75,22 +77,21 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     $('#stage').on('mouseleave', '.user-div img', function(){
         var $userDiv = $(this).parent('.user-div');
         var usrObj = $(this).parent('.user-div').data('userObj');
-
         
-        // stretch only if has friends
-        if (usrObj.friends.length) {
-            $userDiv.stop(true, true).css({'width': usrObj.size+20, 'height': usrObj.size+20, 'z-index': '-=1'});
-            Animations.stretch($userDiv, {size: -20, fromCenter: true});
+        if( usrObj ) { // prevent errors when new Users appear under the mouse
+            // stretch only if has friends
+            if (usrObj.friends.length) {
+                $userDiv.stop(true, true).css({'width': usrObj.size+20, 'height': usrObj.size+20, 'z-index': '-=1'});
+                Animations.stretch($userDiv, {size: -20, fromCenter: true});
+            }
+            usrObj.tooltip.hide();
         }
-        usrObj.tooltip.hide();
     });
 
     // User - Click
     $('#stage').on('click', '.user-div', function(){
-
         var usrObj = $(this).data('userObj');
         if(usrObj.friends.length) {
-
             // explose animation
             Animations.explode($(this));
 
