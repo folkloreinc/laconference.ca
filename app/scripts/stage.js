@@ -13,6 +13,7 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
 
     Stage.prototype.addAndShowMolecule = function(mol) {
         this.addMolecule(mol);
+        this.placeMolecule(mol);
         mol.show();
     }
 
@@ -32,7 +33,6 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
     Stage.prototype.placeMolecule = function(mol) {
         mol.pos.x = Utilities.randomIntInRange(0, this.$stage.width()-mol.circ);
         mol.pos.y = Utilities.randomIntInRange(0, this.$stage.height()-mol.circ);
-        console.log(mol.pos);
     };
 
     Stage.prototype.show = function() {

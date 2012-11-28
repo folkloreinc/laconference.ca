@@ -34,8 +34,8 @@ define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, Fram
     Molecule.prototype.placeElement = function(el) {
         // get random position inside radius
         var randCoords = Utilities.randomCoordsInACircle(this.center.x, this.center.y, this.radius);
-        el.x = randCoords.x;
-        el.y = randCoords.y;
+        el.x = randCoords.x + this.pos.x;
+        el.y = randCoords.y + this.pos.y;
     };
 
     Molecule.prototype.show = function() {

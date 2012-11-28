@@ -1,4 +1,4 @@
-define(['jquery', 'animations'], function($, Animations) {
+define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
 
     var User = function(id, data){
         this.id = id;
@@ -41,45 +41,23 @@ define(['jquery', 'animations'], function($, Animations) {
                     'display': 'block',
                     'position': 'absolute',
                     'width': '100%',
-                    'height': '100%'.
+                    'height': '100%',
                     'top': 0,
                     'left': 0
 
                 });
-
-                $img.data('userObj', this);
                 $usrdiv.append($img);
+                $usrdiv.data('userObj', this);
 
-                // Bind Events
-                // -----------
-
-                // Mouse Enter/Leave
-                $usrdiv.hover(
-                    // mouseenter
-                    function(){
-                        $(this).stop(true, true).css({'width': this.size, 'height': this.size, 'z-index': 3});
-                        Animations.stretch($(this), {size: 20, fromCenter: true});
-
-                        var tooltip = new Tooltip(this);
-                        tooltip.show({
-                            'screen_name' : $(this).data('userObj').screen_name,
-                            'text' : $(this).data('userObj').text
-                        });
-                    },
-                    // mouseleave
-                    function(){
-                        $(this).stop(true, true).css({'width': this.size, 'height': this.size, 'z-index': '-=1'});
-                        Animations.stretch($(this), {size: -20, fromCenter: true});
-                    }
-                );
-
+                // Create tooltip
+                this.tooltip = new Tooltip($usrdiv);
 
                 // Place
                 // -----
                 // Place on stage
                 $(window.stage).append($usrdiv);
                 // Animate entry
-                Animations.pop($img, {fromCenter: true, randomDelay: true, maxDelay: 2000});
+                Animations.pop($usrdiv, {fromCenter: true, randomDelay: true, maxDelay: 2000});
             },this)
         );
         profileImg.src = 'https://api.twitter.com/1/users/profile_image?screen_name='+this.screen_name+'&size=normal';
