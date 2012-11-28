@@ -38,7 +38,7 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
                 });
                 var $img = $(profileImg).attr({'id': event.data.id, 'class': 'user-img'});
                 $img.css({
-                    'cursor': 'pointer',
+                    'cursor': (this.friends.length)?'pointer':'default',
                     'display': 'block',
                     'position': 'absolute',
                     'width': '100%',

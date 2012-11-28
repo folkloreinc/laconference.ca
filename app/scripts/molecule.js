@@ -2,8 +2,8 @@ define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, Fram
 
     var Molecule = function(opts){
         this.opts = $.extend({
-            'minRadius': 200,
-            'maxRadius': 400
+            'minRadius': 100,
+            'maxRadius': 300
         }, opts);
         
         this.elements = [];
@@ -49,26 +49,27 @@ define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, Fram
         }
 
         // Circle animation
-        // var anim = new FrameAnimation({
-        //     'frames': [
-        //         'images/frameAnimations/Cercle1-01.png',
-        //         'images/frameAnimations/Cercle1-02.png',
-        //         'images/frameAnimations/Cercle1-03.png',
-        //         'images/frameAnimations/Cercle1-04.png',
-        //         'images/frameAnimations/Cercle1-05.png',
-        //         'images/frameAnimations/Cercle1-06.png',
-        //         'images/frameAnimations/Cercle1-07.png',
-        //         'images/frameAnimations/Cercle1-08.png',
-        //         'images/frameAnimations/Cercle1-09.png',
-        //         'images/frameAnimations/Cercle1-10.png'
-        //     ],
-        //     'height': this.radius * 2,
-        //     'width': this.radius * 2,
-        //     'posX': this.pos.x,
-        //     'posY': this.pos.y,
-        //     'loop': false
-        // });
-        // anim.animate();
+        var anim = new FrameAnimation({
+            'frames': [
+                'images/frameAnimations/Cercle1-01.png',
+                'images/frameAnimations/Cercle1-02.png',
+                'images/frameAnimations/Cercle1-03.png',
+                'images/frameAnimations/Cercle1-04.png',
+                'images/frameAnimations/Cercle1-05.png',
+                'images/frameAnimations/Cercle1-06.png',
+                'images/frameAnimations/Cercle1-07.png',
+                'images/frameAnimations/Cercle1-08.png',
+                'images/frameAnimations/Cercle1-09.png',
+                'images/frameAnimations/Cercle1-10.png'
+            ],
+            'height': this.radius * 3,
+            'width': this.radius * 3,
+            'posX': this.pos.x - (this.radius / 2.2),
+            'posY': this.pos.y - (this.radius / 2.2),
+            'loop': false
+        });
+        anim.animate();
+        anim.$el.fadeOut(6000);
 
     };
 

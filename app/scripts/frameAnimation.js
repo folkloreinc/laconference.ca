@@ -15,7 +15,7 @@ define(['jquery'], function($) {
         this.stopped = false;
 
         this.create();
-        this.drawFrame(this.curFrame);
+        // this.drawFrame(this.curFrame);
     };
 
     FrameAnimation.prototype.nextFrame = function() {
@@ -68,7 +68,7 @@ define(['jquery'], function($) {
                 'left': this.opts.posX,
                 'top': this.opts.posY
             });
-            $(window.boomStage).append(this.$el);
+            $(window.boomStage.$stage).append(this.$el);
         }
     };
     

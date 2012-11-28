@@ -32,16 +32,23 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
         }
 
         // Place Users into random molecule
-        var i = 0;
+        // build array of keys
+        var availTweets = [];
         for (var key in data) {
-            if(i < 40) {
-                // random Molecule
-                var mol = boomStage.getRandomMolecule();
-
-                // place Users
-                var usr = new User(key, data[key]);
-                mol.addElement(usr);
+            if (data.hasOwnProperty(key)) {
+                availTweets.push(key);
             }
+        }
+        var i = 0;
+        while(i < 40) {
+            // random Molecule
+            var mol = boomStage.getRandomMolecule();
+
+            // place random Users in that molecule
+            randKeyKey = Math.floor(availTweets.length * Math.random());
+            randKey = availTweets.splice(randKeyKey, 1);
+            var usr = new User(key, data[randKey]);
+            mol.addElement(usr);
             i++;
         }
 
@@ -58,9 +65,12 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     $('#stage').on('mouseenter', '.user-div img', function(){
         var $userDiv = $(this).parent('.user-div');
         var usrObj = $(this).parent('.user-div').data('userObj');
-        // reset div
-        $userDiv.stop(true, true).css({'width': usrObj.size, 'height': usrObj.size, 'z-index': 3});
-        Animations.stretch($userDiv, {size: 20, fromCenter: true});
+        
+        // stretch only if has friends
+        if (usrObj.friends.length) {
+            $userDiv.stop(true, true).css({'width': usrObj.size, 'height': usrObj.size, 'z-index': 3});
+            Animations.stretch($userDiv, {size: 20, fromCenter: true});
+        }
         
         usrObj.tooltip.show({
             'screen_name' : usrObj.screen_name,
@@ -74,8 +84,12 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
         var $userDiv = $(this).parent('.user-div');
         var usrObj = $(this).parent('.user-div').data('userObj');
 
-        $userDiv.stop(true, true).css({'width': usrObj.size+20, 'height': usrObj.size+20, 'z-index': '-=1'});
-        Animations.stretch($userDiv, {size: -20, fromCenter: true});
+        
+        // stretch only if has friends
+        if (usrObj.friends.length) {
+            $userDiv.stop(true, true).css({'width': usrObj.size+20, 'height': usrObj.size+20, 'z-index': '-=1'});
+            Animations.stretch($userDiv, {size: -20, fromCenter: true});
+        }
         usrObj.tooltip.hide();
     });
 
