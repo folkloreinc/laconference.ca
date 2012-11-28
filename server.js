@@ -133,7 +133,6 @@ function createStream() {
 					});
 					//console.log(data.text);
 				}
-				console.log(data.text);
 			} catch(e){}
 		});
 
