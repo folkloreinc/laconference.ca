@@ -1,26 +1,26 @@
 {
-	"name": "Boomerang2012",
+	"name": "Boomerange2012",
 	"description": "",
 	"subdomain": "conference",
 	"domains": [
 		"laconference.ca",
 		"www.laconference.ca"
 	],
-	"version": "0.0.1",
+	"version": "0.0.1-2",
 	"author": {
 		"name": "Folklore",
 		"email": "info@atelierfolklore.ca"
 	},
 	"contributors": [
-        {
-            "name": "David Mongeau-Petitpas",
-            "email": "dmp@atelierfolklore.ca"
-        },
-        {
-            "name": "François Côté",
-            "email": "fc@atelierfolklore.ca"
-        }
-    ],
+		{
+			"name": "David Mongeau-Petitpas",
+			"email": "dmp@atelierfolklore.ca"
+		},
+		{
+			"name": "François Côté",
+			"email": "fc@atelierfolklore.ca"
+		}
+	],
 	"main": "server.js",
 	"scripts": {
 		"start": "server.js"
