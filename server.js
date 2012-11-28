@@ -12,10 +12,10 @@ var Ecosystem = require('./lib/ecosystem');
 //Create Express
 var express = require('express');
 var app = express(),
-	server = require('http').createServer(app),
-	io = require('socket.io').listen(server);
-server.listen(CONFIG.port);
+	server = require('http').createServer(app).listen(CONFIG.port);
+var io = require('socket.io').listen(server);
 io.set('log level', 1);
+io.set('transports', ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
 
 //Twitter
 var twitter = require('ntwitter');
