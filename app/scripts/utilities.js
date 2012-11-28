@@ -13,7 +13,7 @@ define([], function() {
 
 		randomIntInRange: function(from, to) {
 			// if only one param is passed, generate in range [0, param]
-			if (to === null) {
+			if (to === undefined) {
 				to = from;
 				from = 0;
 			}
