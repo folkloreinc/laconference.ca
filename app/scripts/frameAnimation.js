@@ -1,6 +1,7 @@
 define(['jquery'], function($) {
 
-    var FrameAnimation = function(opts){
+    var FrameAnimation = function($el, opts){
+        this.$el = $el;
         this.opts = $.extend({
             'frames': [],
             'height': 400,
@@ -37,12 +38,12 @@ define(['jquery'], function($) {
     };
 
     FrameAnimation.prototype.drawFrame = function(noFrame) {
-        this.$el.attr('src', this.opts.frames[noFrame]);
+        this.$animEl.attr('src', this.opts.frames[noFrame]);
         this.curFrame = noFrame;
     };
 
     FrameAnimation.prototype.animate = function() {
-        if(!this.$el) {
+        if(!this.$animEl) {
             this.create();
         }
         this.nextFrame();
@@ -63,13 +64,13 @@ define(['jquery'], function($) {
 
     FrameAnimation.prototype.create = function() {
         if (this.opts.frames.length) {
-            this.$el = $('<img class="frameAnimation '+this.opts.classes.join(' ')+'" height="'+this.opts.height+'" width="'+this.opts.width+'" src="'+this.opts.frames[this.curFrame]+'" />');
-            this.$el.css({
+            this.$animEl = $('<img class="frameAnimation '+this.opts.classes.join(' ')+'" height="'+this.opts.height+'" width="'+this.opts.width+'" src="'+this.opts.frames[this.curFrame]+'" />');
+            this.$animEl.css({
                 'position': 'absolute',
                 'left': this.opts.posX,
                 'top': this.opts.posY
             });
-            $(window.boomStage.$stage).append(this.$el);
+            this.$el.append(this.$animEl);
         }
     };
     

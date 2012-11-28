@@ -29,8 +29,6 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
             $.proxy(function(event){
                 // Build jQuery Image object
                 var $usrdiv = $('<div class="user-div">').css({
-                    'position': 'absolute',
-                    'display': 'none',
                     'width': event.data.size,
                     'height': event.data.size,
                     'left': event.data.x,
@@ -38,13 +36,7 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
                 });
                 var $img = $(profileImg).attr({'id': event.data.id, 'class': 'user-img'});
                 $img.css({
-                    'cursor': (this.friends.length)?'pointer':'default',
-                    'display': 'block',
-                    'position': 'absolute',
-                    'width': '100%',
-                    'height': '100%',
-                    'top': 0,
-                    'left': 0
+                    'cursor': (this.friends.length)?'pointer':'default'
 
                 });
                 $usrdiv.append($img);

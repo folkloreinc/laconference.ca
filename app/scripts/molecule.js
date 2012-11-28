@@ -79,7 +79,7 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
 
         // Circle animation
         var sp = Utilities.randomPropertyKey(Sprites.circles);
-        var anim = new FrameAnimation({
+        var circle_anim = new FrameAnimation(window.boomStage.$stage, {
             'frames': Sprites.circles[sp].frames,
             'height': this.radius * 3,
             'width': this.radius * 3,
@@ -87,8 +87,8 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
             'posY': this.pos.y - (this.radius / 4),
             'loop': false
         });
-        anim.animate();
-        anim.$el.fadeOut(6000, function(){
+        circle_anim.animate();
+        circle_anim.$animEl.fadeOut(6000, function(){
             $(this).remove();
         });
 
@@ -97,17 +97,18 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
 
         // get random position on circle
         var randAngle = Utilities.randomIntInRange(359);
-        var anim = new FrameAnimation({
+        var word_anim = new FrameAnimation(window.boomStage.$stage, {
             'frames': Sprites.words[wd].frames,
-            'height': Sprites.words[wd].height,
-            'width': Sprites.words[wd].width,
+            'height': Sprites.words[wd].height + Utilities.randomIntInRange(100),
+            'width': Sprites.words[wd].width + Utilities.randomIntInRange(50),
             'posX': this.center.x + Math.cos(randAngle) * this.radius,
             'posY': this.center.y + Math.sin(randAngle) * this.radius,
             'classes' : ['word'],
             'loop': true
         });
-        anim.animate();
-        anim.$el.fadeOut(6000, function(){
+        word_anim.animate();
+        word_anim.$animEl.fadeOut(6000, function(){
+            word_anim.stopAnimation();
             $(this).remove();
         });
 

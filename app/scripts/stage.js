@@ -3,6 +3,16 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
     var Stage = function($el){
         this.molecules = [];
         this.$stage = $el;
+        this.nbClicks = 0;
+        // determines nb of Users we can show.
+        // key = number of clicks, value = numbers of users allowed
+        this.maxUsersToShow = { 
+            0: 5,
+            1: 8,
+            3: 10,
+            4: 15,
+            5: 20
+        };
     };
 
     Stage.prototype.addMolecules = function(molecules) {
@@ -29,6 +39,21 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
           'x': Utilities.randomIntInRange(0, this.$stage.width()-mol.circ),
           'y': Utilities.randomIntInRange(0, this.$stage.height()-mol.circ)
         });
+    };
+
+    Stage.prototype.registerClick = function() {
+        this.nbClicks++;
+    };
+
+    Stage.prototype.getMaxUsersToShow = function() {
+        var maxKey;
+        for (var key in this.maxUsersToShow) {
+            if(this.nbClicks <= key) {
+                return this.maxUsersToShow[key];
+            }
+            maxKey = key;
+        };
+        return this.maxUsersToShow[maxKey];
     };
 
     Stage.prototype.show = function() {

@@ -63,7 +63,7 @@ define(['jquery', 'easing'], function($){
 
         explode: function($el, opts){
 
-            var $clone = $el.clone().appendTo('#stage');
+            var $clone = $el.clone().appendTo('#stage').addClass('anim-explode');
 
             // Options
             opts = $.extend({

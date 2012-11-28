@@ -20,7 +20,7 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
         var nbStartMolecules = 1;
         for (var i = 0; i < nbStartMolecules; i++) {
             var mol = new Molecule();
-            boomStage.addMolecule(mol)
+            window.boomStage.addMolecule(mol);
         }
 
         // Place Users into random molecule
@@ -31,21 +31,22 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
                 availTweets.push(key);
             }
         }
-        var i = 0;
-        while(i < 40) {
+        var m = 0;
+        var maxUsersToShow = window.boomStage.getMaxUsersToShow();
+        while(m < maxUsersToShow) {
             // random Molecule
-            var mol = boomStage.getRandomMolecule();
+            var randMol = window.boomStage.getRandomMolecule();
 
             // place random Users in that molecule
-            randKeyKey = Math.floor(availTweets.length * Math.random());
-            randKey = availTweets.splice(randKeyKey, 1);
+            var randKeyKey = Math.floor(availTweets.length * Math.random());
+            var randKey = availTweets.splice(randKeyKey, 1);
             var usr = new User(key, data[randKey]);
-            mol.addElement(usr);
-            i++;
+            randMol.addElement(usr);
+            m++;
         }
 
         // Show stage
-        boomStage.show();
+        window.boomStage.show();
 
     });
 
@@ -92,6 +93,10 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     $('#stage').on('click', '.user-div', function(){
         var usrObj = $(this).data('userObj');
         if(usrObj.friends.length) {
+
+            // Register click
+            window.boomStage.registerClick();
+
             // explose animation
             Animations.explode($(this));
 
@@ -99,20 +104,38 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
             var mol = new Molecule({minRadius: 200,maxRadius: 400});
             window.boomStage.addMolecule(mol);
 
-            // Add Friends to molecule
-            $.each(usrObj.friends, function(key, value) {
-                var usr = new User(value, window.receivedTweets[value]);
-                mol.addElement(usr);
-            });
+            // Add allowed number of Friends to molecule, at random
+            var availFriends = usrObj.friends;
+
+            var u = 0;
+            var maxUsersToShow = window.boomStage.getMaxUsersToShow()
+
+            while(u < maxUsersToShow) {                
+                // get random Friend from available friends
+                var randKeyKey = Math.floor(availFriends.length * Math.random());
+                var randKey = availFriends.splice(randKeyKey, 1)[0];
+
+                // create User and place inside Molecule
+                var tweetdata = getTweetData(randKey)
+                if(tweetdata){
+                    var usr = new User(randKey, tweetdata);
+                    mol.addElement(usr);
+                }
+                u++;   
+            }
             
             // show it
-            mol.show()
+            mol.show();
         }
 
 
     });
     
-
+    function getTweetData(id) {
+        if (window.receivedTweets.hasOwnProperty(id)) {
+            return window.receivedTweets[id];
+        }
+    }
 
 
 });
