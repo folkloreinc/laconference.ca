@@ -138,7 +138,7 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     }
 
     // BG Flickr
-    Animations.randomBGFlicker($('#stage'), {
+    Animations.randomBGFlicker($('#bgimg'), {
         'images': [
             '/images/frameAnimations/bg_001.png',
             '/images/frameAnimations/bg_002.png',
