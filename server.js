@@ -16,6 +16,8 @@ var app = express(),
 	io = require('socket.io').listen(server);
 server.listen(CONFIG.port);
 
+io.set('log level', 1);
+
 //Twitter
 var twitter = require('ntwitter');
 var twit = new twitter(CONFIG.twitter);
@@ -68,7 +70,10 @@ var ecosystem = new Ecosystem();
 ecosystem.load(function(data) {
 	ecosystemList = data;
 	for(var id in data) {
-		twitterUsers.push(id);
+		id = id+'';
+		if(id != '813286' && id != '972651' && id != '10876852') {
+			twitterUsers.push(id);
+		}
 	}
 	createStream();
 });
@@ -104,6 +109,8 @@ io.sockets.on('connection',function(socket) {
 var twitterConnectionRetries = 1;
 function createStream() {
 
+	console.log('Twitter stream follow',twitterUsers.join(','));
+
 	twit.stream('statuses/filter', {
 
 		'follow': twitterUsers.join(',')
@@ -115,14 +122,18 @@ function createStream() {
 		stream.on('data', function (data) {
 			try {
 				twitterConnectionRetries = 1;
-				io.sockets.emit('tweet',{
-					'id' : data.id_str,
-					'text' : data.text,
-					'user' : {
-						'id' : data.user.id_str,
-						'screen_name' : data.user.screen_name
-					}
-				});
+				if(twitterUsers.indexOf(data.user.id_str) != -1) {
+					io.sockets.emit('tweet',{
+						'id' : data.id_str,
+						'text' : data.text,
+						'user' : {
+							'id' : data.user.id_str,
+							'screen_name' : data.user.screen_name
+						}
+					});
+					//console.log(data.text);
+				}
+				console.log(data.text);
 			} catch(e){}
 		});
 
