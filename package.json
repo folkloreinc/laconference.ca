@@ -3,7 +3,8 @@
 	"description": "",
 	"subdomain": "boomerang",
 	"domains": [
-		
+		"laconference.ca",
+		"www.laconference.ca"
 	],
 	"version": "0.0.1",
 	"author": {
