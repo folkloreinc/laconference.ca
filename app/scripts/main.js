@@ -8,14 +8,6 @@ require.config({
  
 require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], function($, Stage, Molecule, User, Tooltip, Animations) {
     
-    // console.log($);
-
-    // var socket = io.connect('http://localhost');
-    //     socket.on('news', function (data) {
-    //     console.log(data);
-    //     socket.emit('my other event', { my: 'data' });
-    // });
-    
     // Get Original Tweets
     $.get('/ecosystem.json', function receiveTweets(data) {
         

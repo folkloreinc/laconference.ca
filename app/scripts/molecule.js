@@ -1,4 +1,4 @@
-define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, FrameAnimation, Utilities) {
+define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($, User, Utilities, FrameAnimation, Sprites) {
 
     var Molecule = function(opts){
         this.opts = $.extend({
@@ -50,22 +50,11 @@ define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, Fram
 
         // Circle animation
         var anim = new FrameAnimation({
-            'frames': [
-                'images/frameAnimations/Cercle1-01.png',
-                'images/frameAnimations/Cercle1-02.png',
-                'images/frameAnimations/Cercle1-03.png',
-                'images/frameAnimations/Cercle1-04.png',
-                'images/frameAnimations/Cercle1-05.png',
-                'images/frameAnimations/Cercle1-06.png',
-                'images/frameAnimations/Cercle1-07.png',
-                'images/frameAnimations/Cercle1-08.png',
-                'images/frameAnimations/Cercle1-09.png',
-                'images/frameAnimations/Cercle1-10.png'
-            ],
+            'frames': Sprites.cercle1,
             'height': this.radius * 3,
             'width': this.radius * 3,
-            'posX': this.pos.x - (this.radius / 2.2),
-            'posY': this.pos.y - (this.radius / 2.2),
+            'posX': this.pos.x - (this.radius / 4),
+            'posY': this.pos.y - (this.radius / 4),
             'loop': false
         });
         anim.animate();
