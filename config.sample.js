@@ -1,6 +1,6 @@
 module.exports = exports = {
 
-	port : 80,
+	port : (!process.env.NODE_ENV || process.env.NODE_ENV != 'production') ? 3502:80,
 
 	mongoURL : '',
 
