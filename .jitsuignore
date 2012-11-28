@@ -1,0 +1,6 @@
+temp
+app
+test
+node_modules
+.sass-cache
+config.sample.js
