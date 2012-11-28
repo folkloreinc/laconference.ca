@@ -1,12 +1,12 @@
-define(['jquery', 'animations'], function($, Animations) {
-
-    var $stage = $('#stage');
+define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
 
     var User = function(id, data){
         this.id = id;
         this.size = 40;
-        this.x = 0;
-        this.y = 0;
+        this.pos = {
+            'x': 0,
+            'y': 0
+        };
 
         // parse data into properties
         var that = this;
@@ -16,50 +16,44 @@ define(['jquery', 'animations'], function($, Animations) {
     };
 
     User.prototype.show = function() {
-
         // Load Image
         var profileImg = new Image();
         $(profileImg).bind('load', 
             {
                 'id': this.id,
                 'size': this.size,
-                'x': this.x,
-            'y': this.y
+                'x': this.pos.x,
+                'y': this.pos.y
             },
             
-            function(event){
-                // Build jQuery Image object 
-                var $img = $(profileImg).attr({'id': event.data.id});
-                $img.css({
-                    'cursor': 'pointer',
-                    'display': 'none',
-                    'position': 'absolute',
-                    'left': event.data.x,
-                    'top': event.data.y,
+            $.proxy(function(event){
+                // Build jQuery Image object
+                var $usrdiv = $('<div class="user-div">').css({
                     'width': event.data.size,
-                    'height': event.data.size
+                    'height': event.data.size,
+                    'left': event.data.x,
+                    'top': event.data.y
                 });
-                // Bind Events
-                $img.hover(
-                    // mouseenter
-                    function(){
-                        $(this).stop(true, true).css({'width': this.size, 'height': this.size, 'z-index': 3});
-                        Animations.stretch($(this), {size: 20, fromCenter: true});
-                    },
-                    // mouseleave
-                    function(){
-                        $(this).stop(true, true).css({'width': this.size, 'height': this.size, 'z-index': '-=1'});
-                        Animations.stretch($(this), {size: -20, fromCenter: true});
-                    }
-                );
+                var $img = $(profileImg).attr({'id': event.data.id, 'class': 'user-img'});
+                $img.css({
+                    'cursor': (this.friends.length)?'pointer':'default'
+
+                });
+                $usrdiv.append($img);
+                $usrdiv.data('userObj', this);
+
+                // Create tooltip
+                this.tooltip = new Tooltip($usrdiv);
+
+                // Place
+                // -----
                 // Place on stage
-                $stage.append($img);
+                $(window.stage).append($usrdiv);
                 // Animate entry
-                Animations.pop($img, {fromCenter: true, randomDelay: true, maxDelay: 2000});
-            }
+                Animations.pop($usrdiv, {fromCenter: true, randomDelay: true, maxDelay: 2000});
+            },this)
         );
-        // profileImg.src = this.profileImageUrl;
-        profileImg.src = 'https://si0.twimg.com/profile_images/523878425/twitterProfilePhoto_normal.jpg';
+        profileImg.src = 'https://api.twitter.com/1/users/profile_image?screen_name='+this.screen_name+'&size=normal';
         
         
     };

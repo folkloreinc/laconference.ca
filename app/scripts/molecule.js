@@ -1,21 +1,22 @@
-define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, FrameAnimation, Utilities) {
+define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($, User, Utilities, FrameAnimation, Sprites) {
 
-    var Molecule = function($stage){
-        var minRadius = 100;
-        var maxRadius = 200;
-
+    var Molecule = function(opts){
+        this.opts = $.extend({
+            'minRadius': 100,
+            'maxRadius': 300
+        }, opts);
+        
         this.elements = [];
-        this.$stage = $stage;
-        this.radius = Utilities.randomIntInRange(minRadius, maxRadius);
+        this.radius = Utilities.randomIntInRange(this.opts.minRadius, this.opts.maxRadius);
         this.circ = this.radius * 2;
         // random position on stage
         this.pos = {
-            'x': Utilities.randomIntInRange(0, this.$stage.width() - this.circ),
-            'y': Utilities.randomIntInRange(0, this.$stage.height() - this.circ)
+            'x': 0,
+            'y': 0
         };
         this.center = {
-            'x': this.pos.x + this.radius,
-            'y': this.pos.y + this.radius
+            'x': 0,
+            'y': 0
         };
     };
 
@@ -30,36 +31,43 @@ define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, Fram
         this.elements.push(el);
     };
 
+    Molecule.prototype.updatePosition = function(position) {
+        this.pos.x = position.x;
+        this.pos.y = position.y;
+        this.center.x = this.pos.x + this.radius;
+        this.center.y = this.pos.y + this.radius;
+
+        // // Draw Origin
+        // $('<div>').css({
+        //     'background': 'blue',
+        //     'position': 'absolute',
+        //     'left': this.pos.x,
+        //     'top': this.pos.y,
+        //     'width': '10px',
+        //     'height': '10px'
+        // }).appendTo('body');
+
+        // // Draw Center
+        // $('<div>').css({
+        //     'background': 'red',
+        //     'position': 'absolute',
+        //     'left': this.center.x - 5,
+        //     'top': this.center.y -5,
+        //     'width': '10px',
+        //     'height': '10px'
+        // }).appendTo('body');
+        // console.log(this.pos, this.radius, this.center);
+
+    }
+
     Molecule.prototype.placeElement = function(el) {
         // get random position inside radius
         var randCoords = Utilities.randomCoordsInACircle(this.center.x, this.center.y, this.radius);
-        el.x = randCoords.x;
-        el.y = randCoords.y;
+        // console.log(randCoords);
+        el.pos.x = randCoords.x;
+        el.pos.y = randCoords.y;
     };
-
     Molecule.prototype.show = function() {
-
-        // Circle animation
-        // var anim = new FrameAnimation(this.$stage, {
-        //     'frames': [
-        //         'images/frameAnimations/Cercle1-01.png',
-        //         'images/frameAnimations/Cercle1-02.png',
-        //         'images/frameAnimations/Cercle1-03.png',
-        //         'images/frameAnimations/Cercle1-04.png',
-        //         'images/frameAnimations/Cercle1-05.png',
-        //         'images/frameAnimations/Cercle1-06.png',
-        //         'images/frameAnimations/Cercle1-07.png',
-        //         'images/frameAnimations/Cercle1-08.png',
-        //         'images/frameAnimations/Cercle1-09.png',
-        //         'images/frameAnimations/Cercle1-10.png'
-        //     ],
-        //     'height': this.radius * 1.5,
-        //     'width': this.radius * 1.5,
-        //     'posX': this.pos.x - (this.radius / 2),
-        //     'posY': this.pos.y - (this.radius / 2),
-        //     'loop': false
-        // });
-        // anim.animate();
 
         // Create Users elements
         if(this.elements) {
@@ -68,6 +76,48 @@ define(['jquery', 'user', 'frameAnimation', 'utilities'], function($, User, Fram
                 elem.show();
             }
         }
+
+        // Circle animation
+        var sp = Utilities.randomPropertyKey(Sprites.circles);
+        var circleAnim = new FrameAnimation(window.boomStage.$stage, {
+            'frames': Sprites.circles[sp].frames,
+            'height': this.radius * 3,
+            'width': this.radius * 3,
+            'posX': this.pos.x - (this.radius / 4),
+            'posY': this.pos.y - (this.radius / 4),
+            'loop': false
+        });
+        circleAnim.animate();
+        circleAnim.$animEl.fadeOut(6000, function(){
+            $(this).remove();
+        });
+
+        
+        // Word animation
+        // prevent same word to appear twice in a row
+        var wd = Utilities.randomPropertyKey(Sprites.words);
+        while( wd === window.boomStage.previousWord ) {
+            console.log('pareil');
+            wd = Utilities.randomPropertyKey(Sprites.words);
+        }
+        window.boomStage.previousWord = wd;
+
+        // get random position on circle
+        var randAngle = Utilities.randomIntInRange(359);
+        var wordAnim = new FrameAnimation(window.boomStage.$stage, {
+            'frames': Sprites.words[wd].frames,
+            'height': Sprites.words[wd].height + Utilities.randomIntInRange(100),
+            'width': Sprites.words[wd].width + Utilities.randomIntInRange(50),
+            'posX': this.center.x + Math.cos(randAngle) * this.radius,
+            'posY': this.center.y + Math.sin(randAngle) * this.radius,
+            'classes' : ['word'],
+            'loop': true
+        });
+        wordAnim.animate();
+        wordAnim.$animEl.fadeOut(6000, function(){
+            wordAnim.stopAnimation();
+            $(this).remove();
+        });
 
     };
 
