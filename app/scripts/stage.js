@@ -53,7 +53,7 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
                 return this.maxUsersToShow[key];
             }
             maxKey = key;
-        };
+        }
         return this.maxUsersToShow[maxKey];
     };
 
@@ -63,6 +63,15 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
             for (var i = 0; i < this.molecules.length; i++) {
                 var mol = this.molecules[i];
                 mol.show();
+            }
+        }
+    };
+
+    Stage.prototype.searchUser = function(id) {
+        for (var i = 0; i < this.molecules.length; i++) {
+            var el = this.molecules.getElement(id);
+            if(el) {
+                return el;
             }
         }
     };

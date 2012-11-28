@@ -26,6 +26,10 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
         }
     };
 
+    Molecule.prototype.getElement = function(id) {
+        return this.elements[id];
+    };
+
     Molecule.prototype.addElement = function(el) {
         this.placeElement(el);
         this.elements.push(el);
@@ -97,7 +101,6 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
         // prevent same word to appear twice in a row
         var wd = Utilities.randomPropertyKey(Sprites.words);
         while( wd === window.boomStage.previousWord ) {
-            console.log('pareil');
             wd = Utilities.randomPropertyKey(Sprites.words);
         }
         window.boomStage.previousWord = wd;
