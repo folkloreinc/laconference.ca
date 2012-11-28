@@ -137,18 +137,18 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
         }
     }
 
-    // // BG Flickr
-    // Animations.randomBGFlicker($('#stage'), {
-    //     'images': [
-    //         '/images/frameAnimations/bg_001.png',
-    //         '/images/frameAnimations/bg_002.png',
-    //         '/images/frameAnimations/bg_003.png',
-    //         '/images/frameAnimations/bg_004.png',
-    //         '/images/frameAnimations/bg_005.png',
-    //         '/images/frameAnimations/bg_006.png',
-    //         '/images/frameAnimations/bg_007.png'
-    //     ]
-    // });
+    // BG Flickr
+    Animations.randomBGFlicker($('#stage'), {
+        'images': [
+            '/images/frameAnimations/bg_001.png',
+            '/images/frameAnimations/bg_002.png',
+            '/images/frameAnimations/bg_003.png',
+            '/images/frameAnimations/bg_004.png',
+            '/images/frameAnimations/bg_005.png',
+            '/images/frameAnimations/bg_006.png',
+            '/images/frameAnimations/bg_007.png'
+        ]
+    });
 
 
 });
