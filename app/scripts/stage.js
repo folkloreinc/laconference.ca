@@ -69,7 +69,7 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
 
     Stage.prototype.searchUser = function(id) {
         for (var i = 0; i < this.molecules.length; i++) {
-            var el = this.molecules.getElement(id);
+            var el = this.molecules[i].getElement(id);
             if(el) {
                 return el;
             }

@@ -3,7 +3,9 @@ define(['jquery', 'easing'], function($){
     var Animations = {
 
         // Make object appear as a POP!!
-        pop: function($el, opts){
+        pop: function($el, opts, cb){
+            cb = cb || function(){};
+
             // Options
             opts = $.extend({
                 'fromCenter': false,
@@ -36,7 +38,7 @@ define(['jquery', 'easing'], function($){
                 'top': '-='+offset.y,
                 'width': originalSize.x,
                 'height': originalSize.y
-            }, 800, 'easeOutElastic');
+            }, 800, 'easeOutElastic', cb);
         },
 
         stretch: function($el, opts){
