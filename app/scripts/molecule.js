@@ -79,7 +79,7 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
 
         // Circle animation
         var sp = Utilities.randomPropertyKey(Sprites.circles);
-        var circle_anim = new FrameAnimation(window.boomStage.$stage, {
+        var circleAnim = new FrameAnimation(window.boomStage.$stage, {
             'frames': Sprites.circles[sp].frames,
             'height': this.radius * 3,
             'width': this.radius * 3,
@@ -87,17 +87,24 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
             'posY': this.pos.y - (this.radius / 4),
             'loop': false
         });
-        circle_anim.animate();
-        circle_anim.$animEl.fadeOut(6000, function(){
+        circleAnim.animate();
+        circleAnim.$animEl.fadeOut(6000, function(){
             $(this).remove();
         });
 
+        
         // Word animation
+        // prevent same word to appear twice in a row
         var wd = Utilities.randomPropertyKey(Sprites.words);
+        while( wd === window.boomStage.previousWord ) {
+            console.log('pareil');
+            wd = Utilities.randomPropertyKey(Sprites.words);
+        }
+        window.boomStage.previousWord = wd;
 
         // get random position on circle
         var randAngle = Utilities.randomIntInRange(359);
-        var word_anim = new FrameAnimation(window.boomStage.$stage, {
+        var wordAnim = new FrameAnimation(window.boomStage.$stage, {
             'frames': Sprites.words[wd].frames,
             'height': Sprites.words[wd].height + Utilities.randomIntInRange(100),
             'width': Sprites.words[wd].width + Utilities.randomIntInRange(50),
@@ -106,9 +113,9 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
             'classes' : ['word'],
             'loop': true
         });
-        word_anim.animate();
-        word_anim.$animEl.fadeOut(6000, function(){
-            word_anim.stopAnimation();
+        wordAnim.animate();
+        wordAnim.$animEl.fadeOut(6000, function(){
+            wordAnim.stopAnimation();
             $(this).remove();
         });
 

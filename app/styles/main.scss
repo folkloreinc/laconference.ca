@@ -6,12 +6,12 @@ $bgColor: #111111;
 
 
 body {
-    // background: $bgColor;
+    background: $bgColor;
 }
 
 #stage {
     position: absolute;
-    background: url(/images/dirt003.gif);
+    // background: url(/images/bg.gif);
     width: 100%;
     height: 100%;
 }

@@ -3,6 +3,7 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
     var Stage = function($el){
         this.molecules = [];
         this.$stage = $el;
+        this.previousWord = '';
         this.nbClicks = 0;
         // determines nb of Users we can show.
         // key = number of clicks, value = numbers of users allowed
@@ -10,8 +11,8 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
             0: 5,
             1: 8,
             3: 10,
-            4: 15,
-            5: 20
+            4: 20,
+            5: 100
         };
     };
 

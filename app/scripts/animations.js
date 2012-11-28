@@ -87,6 +87,41 @@ define(['jquery', 'easing'], function($){
             }, 1000, 'easeOutExpo', function() {
                 $(this).remove();
             });
+        },
+
+        randomBGFlicker: function($el, opts){
+            // Options
+            opts = $.extend({
+                'images': []
+            }, opts);
+
+
+            var hideBG = function() {
+                $el.css({
+                    'background-image': 'none'
+                });
+
+                // loop
+                window.setTimeout(function() {
+                    hideBG();
+                }, Math.floor(Math.random() * 1000 ));
+            };
+
+            var switchBG = function() {
+                // Random background
+                var randBG = opts.images[Math.floor(Math.random() * opts.images.length)];
+                $el.css({
+                    'background-image': 'url('+randBG+')'
+                });
+                
+                // loop
+                window.setTimeout(function() {
+                    switchBG();
+                }, Math.floor(Math.random() * 200 ));
+            };
+
+            hideBG();
+            switchBG();
         }
 
 
