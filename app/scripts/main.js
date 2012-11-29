@@ -11,7 +11,7 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     /*
      * Static Tweets
      */
-    $.get('/ecosystem.json', function receiveTweets(data) {
+    $.getJSON('/ecosystem.json?callback=?', function receiveTweets(data) {
         
         window.receivedTweets = data;
 

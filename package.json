@@ -1,12 +1,12 @@
 {
-	"name": "Boomerange2012",
+	"name": "Boomerang2012",
 	"description": "",
-	"subdomain": "conference",
+	"subdomain": "laconference",
 	"domains": [
 		"laconference.ca",
 		"www.laconference.ca"
 	],
-	"version": "0.0.2-1",
+	"version": "0.0.1-1",
 	"author": {
 		"name": "Folklore",
 		"email": "info@atelierfolklore.ca"
