@@ -13,9 +13,10 @@ var Ecosystem = require('./lib/ecosystem');
 var express = require('express');
 var app = express(),
 	server = require('http').createServer(app).listen(CONFIG.port);
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server,{
+	'flash policy port': -1
+});
 io.set('log level', 1);
-io.set('transports', ['websocket', 'htmlfile', 'xhr-polling', 'jsonp-polling']);
 
 //Twitter
 var twitter = require('ntwitter');
