@@ -22,7 +22,8 @@ define(['jquery', 'utilities'], function($, Utilities) {
     TweetTooltip.prototype.show = function(tweet) {
 
         this.$tooltip.find('.screenName').html('@'+tweet.screen_name);
-        this.$tooltip.find('.tweet').html(Utilities.linkify(tweet.text));
+        // this.$tooltip.find('.tweet').html(Utilities.linkify(tweet.text));
+        this.$tooltip.find('.tweet').html(tweet.text);
 
         this.$tooltip.removeClass('tweettooltip-left');
         this.$tooltip.removeClass('tweettooltip-right');
