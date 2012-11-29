@@ -35,10 +35,6 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
                     'top': event.data.y
                 });
                 var $img = $(profileImg).attr({'id': event.data.id, 'class': 'user-img'});
-                $img.css({
-                    'cursor': (this.friends.length)?'pointer':'default'
-
-                });
                 $usrdiv.append($img);
                 $usrdiv.data('userObj', this);
 
@@ -48,6 +44,7 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
                 $('#stage').append($usrdiv);
                 // Create tooltip
                 this.tooltip = new Tooltip($usrdiv);
+
                 // Animate entry
                 Animations.pop($usrdiv, {fromCenter: true, randomDelay: true, maxDelay: 2000}, $.proxy(function(){
                     if (!!showTooltip) {

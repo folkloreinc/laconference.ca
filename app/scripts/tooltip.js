@@ -2,19 +2,27 @@ define(['jquery', 'utilities'], function($, Utilities) {
 
 	var TweetTooltip = function(el) {
 		this.$el = $(el);
-		// this.$tooltip = $(el);
+		this.$tooltip = $(el);
+
+        this.$tooltip = this._buildElement();
+        this.$el.append(this.$tooltip);
 	};
 
+	TweetTooltip.prototype._buildElement = function() {
+
+		var $tooltip = $('<div class="tweettooltip"></div>');
+		$tooltip.append('<div class="tip"></div>');
+		$tooltip.append('<div class="screenName"></div>');
+		$tooltip.append('<div class="tweet"></div>');
+		$tooltip.hide();
+
+		return $tooltip;
+	};
 
     TweetTooltip.prototype.show = function(tweet) {
-        
-        this.$tooltip = this._buildElement();
-        $('#stage').append(this.$tooltip);
 
         this.$tooltip.find('.screenName').html('@'+tweet.screen_name);
         this.$tooltip.find('.tweet').html(Utilities.linkify(tweet.text));
-
-        this.$tooltip.css('opacity',0);
 
         this.$tooltip.removeClass('tweettooltip-left');
         this.$tooltip.removeClass('tweettooltip-right');
@@ -26,25 +34,13 @@ define(['jquery', 'utilities'], function($, Utilities) {
         var position = this.getPosition();
         this.$tooltip.addClass('tweettooltip-'+position);
 
-        this.$tooltip.fadeTo('fast',1);
+        this.$tooltip.show();
     };
 
-	TweetTooltip.prototype._buildElement = function() {
-
-		var $tooltip = $('<div class="tweettooltip"></div>');
-		$tooltip.append('<div class="tip"></div>');
-		$tooltip.append('<div class="screenName"></div>');
-		$tooltip.append('<div class="tweet"></div>');
-		$tooltip.css('opacity',0);
-
-		return $tooltip;
-	};
 
 	TweetTooltip.prototype.hide = function() {
 
-		this.$tooltip.fadeTo('fast', 0, function(){
-            $(this).remove();
-        });
+        this.$tooltip.hide();
 
 	};
 
@@ -72,23 +68,14 @@ define(['jquery', 'utilities'], function($, Utilities) {
 			return 'bottom-right';
 		}*/
 
-		//Top left
-		if((elOffset.left-tooltipWidth) > 0) {
-            this.$tooltip.css({
-                'left': elOffset.left - tooltipWidth,
-                'top': elOffset.top
-            });
+        //Top left
+        if((elOffset.left-tooltipWidth) > 0) {
+            return 'left';
 
-			return 'left';
-
-		//Top right
-		} else if((elOffset.left+tooltipWidth) < window.innerWidth) {
-            this.$tooltip.css({
-                'left': elOffset.left + 40,
-                'top': elOffset.top
-            });
-			return 'right';
-		}
+        //Top right
+        } else if((elOffset.left+tooltipWidth) < window.innerWidth) {
+            return 'right';
+        }
 
 	};
 

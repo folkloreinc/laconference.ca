@@ -29,20 +29,21 @@ body {
 }
 
 .user-div {
+    cursor: pointer;
     position: absolute;
     display: none;
 
     img {
         display: block;
         height: 100%;
+        width: 100%;
         left: 0;
         position: absolute;
         top: 0;
-        width: 100%;
         @include border-radius(20px);
     }
 
-    &:hover img {
+    &.hover img {
         @include border-radius(50px);
     }
 
