@@ -46,6 +46,7 @@ app.set('views', PUBLIC_FOLDER);
 
 //Configure express
 app.configure(function() {
+	app.use(express.compress());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(app.router);
