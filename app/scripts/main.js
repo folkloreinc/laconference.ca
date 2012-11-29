@@ -119,6 +119,10 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
     // User - Click
     $('#stage').on('click', '.user-div', function(){
         var usrObj = $(this).data('userObj');
+
+        // GAnal tracking
+        _gaq.push(['_trackPageview','/click/user']);
+
         if(usrObj.friends.length) {
 
             // Register click
