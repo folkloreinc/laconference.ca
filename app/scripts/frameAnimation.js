@@ -59,7 +59,7 @@ define(['jquery'], function($) {
 
     FrameAnimation.prototype.stopAnimation = function () {
         this.stopped = true;
-        window.clearInterval(this.timeout);
+        window.clearTimeout(this.timeout);
     };
 
     FrameAnimation.prototype.create = function() {

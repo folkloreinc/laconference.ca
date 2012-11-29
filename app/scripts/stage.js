@@ -9,8 +9,8 @@ define(['jquery', 'molecule', 'utilities'], function($, Molecule, Utilities) {
         // key = number of clicks, value = numbers of users allowed
         this.maxUsersToShow = { 
             0: 5,
-            1: 8,
-            3: 10,
+            1: 10,
+            3: 15,
             4: 20,
             5: 100
         };

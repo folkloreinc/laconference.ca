@@ -101,10 +101,10 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
 
     });
 
-    // // User - mouseLeave
-    $('#stage').on('mouseleave', '.user-div img', function(){
-        var $userDiv = $(this).parent('.user-div');
-        var usrObj = $(this).parent('.user-div').data('userObj');
+    // // User
+    $('#stage').on('mouseout', '.user-div', function(){
+        var $userDiv = $(this);
+        var usrObj = $(this).data('userObj');
         
         if( usrObj ) { // prevent errors when new Users appear under the mouse
             // stretch only if has friends
