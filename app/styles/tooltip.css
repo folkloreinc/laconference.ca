@@ -31,9 +31,19 @@
 	display:block;
 }
 
+.tweettooltip-right {
+    left:100%;
+    margin-left:20px;
+}
+
 .tweettooltip-right .tip {
 	left:-12px;
 	background:url(../images/tooltip_tip_right.png) no-repeat top left;
+}
+
+.tweettooltip-left {
+    right:100%;
+    margin-right:20px;
 }
 
 .tweettooltip-left .tip {

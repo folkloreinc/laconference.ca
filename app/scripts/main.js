@@ -82,17 +82,11 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
      */
 
     // User - mouseEnter
-    $('#stage').on('mouseenter', '.user-div img', function(){
-        var $userDiv = $(this).parent('.user-div');
-        var usrObj = $(this).parent('.user-div').data('userObj');
-        
+    $('#stage').on('mouseover', '.user-div', function(){
+        var usrObj = $(this).data('userObj');
         if( usrObj ) { // prevent errors when new Users appear under the mouse
-            // stretch only if has friends
-            if (usrObj.friends.length) {
-                $userDiv.stop(true, true).css({'width': usrObj.size, 'height': usrObj.size, 'z-index': 3});
-                Animations.stretch($userDiv, {size: 20, fromCenter: true});
-            }
-            
+            $(this).stop(true, true).addClass('hover').css({'width': usrObj.size, 'height': usrObj.size, 'z-index': 3});
+            Animations.stretch($(this), {size: 20, fromCenter: true});
             usrObj.tooltip.show({
                 'screen_name' : usrObj.screen_name,
                 'text' : usrObj.text
@@ -103,18 +97,16 @@ require(['jquery', 'stage', 'molecule', 'user', 'tooltip', 'animations'], functi
 
     // // User
     $('#stage').on('mouseout', '.user-div', function(){
-        var $userDiv = $(this);
         var usrObj = $(this).data('userObj');
-        
+        window.clearTimeout(this.mousedelay);
         if( usrObj ) { // prevent errors when new Users appear under the mouse
-            // stretch only if has friends
-            if (usrObj.friends.length) {
-                $userDiv.stop(true, true).css({'width': usrObj.size+20, 'height': usrObj.size+20, 'z-index': '-=1'});
-                Animations.stretch($userDiv, {size: -20, fromCenter: true});
-            }
             usrObj.tooltip.hide();
+            $(this).stop(true, true).css({'width': usrObj.size+20, 'height': usrObj.size+20, 'z-index': '-=1'});
+            Animations.stretch($(this), {size: -20, fromCenter: true});
+            
         }
     });
+
 
     // User - Click
     $('#stage').on('click', '.user-div', function(){

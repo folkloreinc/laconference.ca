@@ -83,7 +83,9 @@ ecosystem.load(function(data) {
 			twitterUsers.push(id);
 		}
 	}
-	createStream();
+    if(process.env.NODE_ENV && process.env.NODE_ENV === 'production') {
+	   createStream();
+    }
 });
 
 //Import
