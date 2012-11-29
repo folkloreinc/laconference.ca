@@ -45,7 +45,7 @@ define(['jquery', 'animations', 'tooltip'], function($, Animations, Tooltip) {
                 // Place
                 // -----
                 // Place on stage
-                $(window.stage).append($usrdiv);
+                $('#stage').append($usrdiv);
                 // Create tooltip
                 this.tooltip = new Tooltip($usrdiv);
                 // Animate entry

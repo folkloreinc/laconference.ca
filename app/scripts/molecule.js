@@ -91,10 +91,14 @@ define(['jquery', 'user', 'utilities', 'frameanimation', 'sprites'], function($,
             'posY': this.pos.y - (this.radius / 4),
             'loop': false
         });
+
         circleAnim.animate();
-        circleAnim.$animEl.fadeOut(6000, function(){
-            $(this).remove();
-        });
+        // circleAnim.$animEl.fadeOut(6000, function(){
+        //     $(this).remove();
+        // });
+        window.setTimeout(function() {
+            circleAnim.$animEl.remove()
+        }, 6000);
 
         
         // Word animation
