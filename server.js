@@ -152,7 +152,7 @@ function createStream() {
 		stream.on('error', function (response) {
 			console.log('error',arguments);
 			try {
-				twitterConnectionRetries++;
+				twitterConnectionRetries = twitterConnectionRetries * 2;
 				stream.destroy();
 			} catch(e){}
 		});
