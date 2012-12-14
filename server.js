@@ -29,31 +29,12 @@ var twit = new twitter(CONFIG.twitter);
  *
  */
 
-if(!process.env.NODE_ENV || process.env.NODE_ENV != 'production') {
-	var PUBLIC_FOLDER = __dirname + "/app";
-	var STYLES_FOLDER = __dirname + "/temp/styles";
-	var SOCKETIO_HOST = 'http://localhost:'+CONFIG.port+'/';
-} else {
-	var PUBLIC_FOLDER = __dirname + "/dist";
-	var SOCKETIO_HOST = 'http://socket.laconference.ca/';
-}
-
-//Template engine
-/*var consolidate = require('consolidate');
-app.engine('html', consolidate.swig);
-app.set('view engine', 'html');
-app.set('views', PUBLIC_FOLDER);*/
-
 //Configure express
 app.configure(function() {
 	app.use(express.compress());
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(app.router);
-	/*app.use(express.static(PUBLIC_FOLDER,{maxAge: 86400000}));
-	if(typeof(STYLES_FOLDER) != 'undefined') {
-    	app.use('/styles', express.static(STYLES_FOLDER,{maxAge: 86400000}));
-	}*/
 });
 app.enable("jsonp callback");
 
@@ -66,9 +47,6 @@ app.enable("jsonp callback");
 
 //Home
 app.get('/',function(req,res) {
-	/*res.render('index',{
-		'socketHost' : SOCKETIO_HOST
-	});*/
 	res.redirect(301,'http://laconference.ca');
 });
 

@@ -21,10 +21,9 @@
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="styles/tooltip.css">
         <script src="scripts/vendor/modernizr.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
 
         <script type="text/javascript">
-            var SOCKETIO_HOST = "{{ socketHost }}";
+            var SOCKET_HOST = window.location.host.indexOf('local') != -1 ? 'localhost:3502':'socket.laconference.ca';
         </script>
 
     </head>
@@ -48,24 +47,26 @@
         </script>
     
 
-    <!-- build:js scripts/amd-app.js -->
-    <script data-main="scripts/main" src="scripts/vendor/require-jquery.js"></script>
-    <!-- endbuild -->
+        <script>window.io || document.write('<script src="http://'+SOCKET_HOST+'/socket.io/socket.io.js"><\/script>')</script>
 
-    <!-- build:js scripts/plugins.js -->
-    <script src="scripts/vendor/bootstrap/bootstrap-affix.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-alert.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-dropdown.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-tooltip.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-modal.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-transition.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-button.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-popover.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-typeahead.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-carousel.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-scrollspy.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-collapse.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-tab.js"></script>
-    <!-- endbuild -->
-</body>
+        <!-- build:js scripts/amd-app.js -->
+        <script data-main="scripts/main" src="scripts/vendor/require-jquery.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js scripts/plugins.js -->
+        <script src="scripts/vendor/bootstrap/bootstrap-affix.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-alert.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-dropdown.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-tooltip.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-modal.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-transition.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-button.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-popover.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-typeahead.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-carousel.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-scrollspy.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-collapse.js"></script>
+        <script src="scripts/vendor/bootstrap/bootstrap-tab.js"></script>
+        <!-- endbuild -->
+    </body>
 </html>

@@ -21,10 +21,9 @@
         <link rel="stylesheet" href="styles/08c9cfa8.main.css">
         <link rel="stylesheet" href="styles/03f2d36c.tooltip.css">
         <script src="scripts/vendor/cf69c6f2.modernizr.min.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
 
         <script type="text/javascript">
-            var SOCKETIO_HOST = "{{ socketHost }}";
+            var SOCKET_HOST = window.location.host.indexOf('local') != -1 ? 'localhost:3502':'socket.laconference.ca';
         </script>
 
     </head>
@@ -48,8 +47,10 @@
         </script>
     
 
-    <script src="scripts/d86877e5.amd-app.js"></script>
+        <script>window.io || document.write('<script src="http://'+SOCKET_HOST+'/socket.io/socket.io.js"><\/script>')</script>
 
-    <script src="scripts/8ab52a5b.plugins.js"></script>
-</body>
+        <script src="scripts/b321e32b.amd-app.js"></script>
+
+        <script src="scripts/8ab52a5b.plugins.js"></script>
+    </body>
 </html>
