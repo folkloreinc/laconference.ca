@@ -1,14 +1,14 @@
 ReferenceError: Can't find variable: io
 
-  http://localhost:3501/scripts/b321e32b.amd-app.js:1
-  http://localhost:3501/scripts/b321e32b.amd-app.js:1
-  http://localhost:3501/scripts/b321e32b.amd-app.js:1
-  http://localhost:3501/scripts/b321e32b.amd-app.js:1
-  http://localhost:3501/scripts/b321e32b.amd-app.js:1
-  http://localhost:3501/scripts/b321e32b.amd-app.js:1
+  http://localhost:3501/scripts/9e42ee04.amd-app.js:1
+  http://localhost:3501/scripts/9e42ee04.amd-app.js:1
+  http://localhost:3501/scripts/9e42ee04.amd-app.js:1
+  http://localhost:3501/scripts/9e42ee04.amd-app.js:1
+  http://localhost:3501/scripts/9e42ee04.amd-app.js:1
+  http://localhost:3501/scripts/9e42ee04.amd-app.js:1
 CACHE MANIFEST
 
-# Time: Fri Dec 14 2012 10:39:23 GMT-0500 (EST)
+# Time: Fri Dec 14 2012 10:50:42 GMT-0500 (EST)
 # This manifest was created by confess.js, http://github.com/jamesgpearce/confess
 #
 # Retrieved URL: http://localhost:3501/
@@ -36,11 +36,11 @@ http://localhost:3501/app/images/glyphicons-halflings.png?1353689182
 http://localhost:3501/images/conference.png
 http://localhost:3501/images/tooltip_tip_left.png
 http://localhost:3501/images/tooltip_tip_right.png
-http://localhost:3502/ecosystem.json?callback=jQuery18204020309017505497_1355499563227&_=1355499563238
+http://localhost:3502/ecosystem.json?callback=jQuery18202778890132904053_1355500242372&_=1355500242381
 http://localhost:3502/socket.io/socket.io.js
 http://www.google-analytics.com/ga.js
 scripts/8ab52a5b.plugins.js
-scripts/b321e32b.amd-app.js
+scripts/9e42ee04.amd-app.js
 scripts/vendor/cf69c6f2.modernizr.min.js
 styles/03f2d36c.tooltip.css
 styles/08c9cfa8.main.css
