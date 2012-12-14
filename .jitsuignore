@@ -1,5 +1,6 @@
 temp
 app
+dist
 test
 node_modules
 .sass-cache
