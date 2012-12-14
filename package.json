@@ -3,7 +3,8 @@
 	"description": "",
 	"subdomain": "laconference",
 	"domains": [
-		"socket.laconference.ca"
+		"socket.laconference.ca",
+		"*.laconference.ca"
 	],
 	"version": "0.0.5",
 	"author": {
